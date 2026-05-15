@@ -1,0 +1,299 @@
+/* ============================================================
+   Os Farejadores — Sombras de Manaus
+   Estilo Principal
+   ============================================================ */
+
+:root {
+    --bg: #0a0f0d;
+    --text: #d4d4c0;
+    --accent: #2d5a27;
+    --accent-light: #4a8a42;
+    --blood: #8a1c1c;
+    --blood-dark: #5a0808;
+    --ui-bg: rgba(8, 12, 10, 0.88);
+    --ui-border: #2a3a2a;
+    --gold: #c8a44a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background: #000;
+    color: var(--text);
+    font-family: 'VT323', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    user-select: none;
+}
+
+#game-container {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    box-shadow: 0 0 40px rgba(45, 90, 39, 0.25), 0 0 80px rgba(0,0,0,0.8);
+    border: 2px solid #1a2a1a;
+}
+
+canvas {
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+}
+
+/* ============================================================
+   HUD Layer
+   ============================================================ */
+#ui-layer {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+}
+
+/* Health Bar */
+#health-bar-container {
+    position: absolute;
+    top: 18px; left: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ui-bg);
+    border: 1px solid var(--ui-border);
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+#health-label {
+    font-size: 14px;
+    color: var(--blood);
+    letter-spacing: 2px;
+    min-width: 32px;
+}
+
+#health-bar-outer {
+    width: 140px;
+    height: 12px;
+    background: #1a0808;
+    border: 1px solid #3a1010;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+#health-bar {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, var(--blood-dark), var(--blood));
+    transition: width 0.3s ease, background-color 0.3s;
+}
+
+#health-text {
+    font-size: 16px;
+    color: var(--text);
+    min-width: 55px;
+    text-align: right;
+}
+
+/* Dialogue Box */
+#dialogue-box {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 88%;
+    background: var(--ui-bg);
+    border: 1px solid var(--ui-border);
+    border-top: 2px solid var(--accent);
+    padding: 14px 18px 10px;
+    pointer-events: auto;
+    border-radius: 3px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.6);
+}
+
+#speaker-name {
+    font-family: 'Cinzel', serif;
+    font-size: 17px;
+    color: var(--accent-light);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--ui-border);
+    padding-bottom: 5px;
+}
+
+#dialogue-text {
+    font-size: 20px;
+    line-height: 1.45;
+    min-height: 56px;
+    color: var(--text);
+}
+
+.continue-prompt {
+    text-align: right;
+    font-size: 13px;
+    color: #666;
+    margin-top: 8px;
+    animation: blink 1.4s ease-in-out infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+}
+
+/* Combat Log */
+#combat-log {
+    position: absolute;
+    bottom: 130px;
+    left: 18px;
+    width: 310px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 3px;
+}
+
+.log-entry {
+    font-size: 15px;
+    padding: 2px 6px;
+    background: rgba(8, 12, 10, 0.7);
+    border-left: 2px solid transparent;
+    animation: logFade 5s forwards;
+}
+
+.log-damage { color: #ff6666; border-color: #8a1c1c; }
+.log-heal   { color: #66dd88; border-color: #2d5a27; }
+.log-info   { color: #aaaaaa; border-color: #444; }
+
+@keyframes logFade {
+    0%, 65% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* Controls Hint */
+#controls-hint {
+    position: absolute;
+    bottom: 18px;
+    right: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+    font-size: 13px;
+    color: #555;
+}
+
+/* ============================================================
+   Overlays (Menu / Game Over)
+   ============================================================ */
+.overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(5, 8, 6, 0.92);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: auto;
+    z-index: 100;
+    background-size: cover;
+    background-position: center;
+}
+
+.menu-content {
+    text-align: center;
+    background: rgba(5, 8, 6, 0.75);
+    padding: 40px 50px;
+    border: 1px solid var(--ui-border);
+    border-top: 2px solid var(--accent);
+    max-width: 480px;
+}
+
+.title-main {
+    font-family: 'Cinzel', serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--accent-light);
+    text-shadow: 0 0 20px rgba(45, 90, 39, 0.6), 0 0 40px rgba(45, 90, 39, 0.3);
+    letter-spacing: 3px;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.title-sub {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    color: var(--gold);
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+    opacity: 0.85;
+}
+
+.title-divider {
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    margin: 0 auto 28px;
+}
+
+.btn-menu {
+    background: transparent;
+    color: var(--text);
+    font-family: 'VT323', monospace;
+    font-size: 26px;
+    border: 1px solid var(--ui-border);
+    border-top: 1px solid var(--accent);
+    padding: 10px 36px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 2px;
+    display: block;
+    margin: 0 auto 20px;
+    min-width: 220px;
+}
+
+.btn-menu:hover {
+    background: rgba(45, 90, 39, 0.2);
+    border-color: var(--accent-light);
+    color: #fff;
+    box-shadow: 0 0 15px rgba(45, 90, 39, 0.4);
+}
+
+.menu-lore {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+/* Game Over */
+.title-death {
+    font-family: 'Cinzel', serif;
+    font-size: 36px;
+    color: var(--blood);
+    text-shadow: 0 0 20px rgba(138, 28, 28, 0.6);
+    margin-bottom: 14px;
+}
+
+.death-quote {
+    font-size: 16px;
+    color: #555;
+    font-style: italic;
+    margin-bottom: 28px;
+    line-height: 1.5;
+}
+
+.btn-death {
+    border-color: var(--blood-dark);
+}
+
+.btn-death:hover {
+    background: rgba(138, 28, 28, 0.2);
+    border-color: var(--blood);
+    box-shadow: 0 0 15px rgba(138, 28, 28, 0.4);
+}
+
+/* Utilitários */
+.hidden { display: none !important; }

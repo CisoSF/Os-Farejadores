@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Os Farejadores — Sombras de Manaus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas" width="800" height="600"></canvas>
+        
+        <!-- HUD -->
+        <div id="ui-layer">
+            <div id="health-bar-container">
+                <div id="health-label">VIDA</div>
+                <div id="health-bar-outer">
+                    <div id="health-bar"></div>
+                </div>
+                <span id="health-text">100/100</span>
+            </div>
+            
+            <!-- Caixa de Diálogo -->
+            <div id="dialogue-box" class="hidden">
+                <div id="speaker-name"></div>
+                <div id="dialogue-text"></div>
+                <div class="continue-prompt">▼ ESPAÇO para continuar</div>
+            </div>
+            
+            <!-- Log de Combate -->
+            <div id="combat-log"></div>
+            
+            <!-- Controles (canto inferior direito) -->
+            <div id="controls-hint">
+                <span>WASD/↑↓←→ Mover</span>
+                <span>ESPAÇO Atacar/Interagir</span>
+            </div>
+        </div>
+        
+        <!-- Menu Principal -->
+        <div id="main-menu" class="overlay">
+            <div class="menu-content">
+                <h1 class="title-main">Os Farejadores</h1>
+                <h2 class="title-sub">Sombras de Manaus</h2>
+                <div class="title-divider"></div>
+                <button id="btn-start" class="btn-menu">⚔ Iniciar Jornada</button>
+                <p class="menu-lore">
+                    "A selva guarda segredos que os homens esqueceram.<br>
+                    Você foi chamado para farejar a verdade nas sombras."
+                </p>
+            </div>
+        </div>
+        
+        <!-- Game Over -->
+        <div id="game-over" class="overlay hidden">
+            <div class="menu-content">
+                <h1 class="title-death">A Selva Cobrou Seu Preço</h1>
+                <p class="death-quote">"A escuridão da Amazônia não perdoa os despreparados."</p>
+                <button id="btn-restart" class="btn-menu btn-death">↺ Tentar Novamente</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/engine.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/entities.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
